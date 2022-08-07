@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer, GeoJSON, Popup } from 'react-leaflet';
 import './App.css';
-import { alertsStr } from './data/alerts';
+import * as alertsData from './data/alerts.json';
 import { useState } from 'react';
 import { geoRegions } from './data/regions';
 
@@ -8,7 +8,6 @@ const copyRight = '&copy; <a href="https://www.openstreetmap.org/copyright">Open
 const position = [48.7630002, 30.1807396];
 
 function App() {
-  const alertsData = JSON.parse(alertsStr);
   const [ regions ] = useState(alertsData);
 
   const getAlertColor = (id) => {
@@ -30,7 +29,7 @@ function App() {
   }
 
   return (
-    <MapContainer center={position} zoom={6.25} scrollWheelZoom={false}>
+    <MapContainer center={position} zoom={6.25} scrollWheelZoom={true}>
       <TileLayer
         attribution={copyRight}
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
