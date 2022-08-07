@@ -29,18 +29,22 @@ region_ids = {
   'м. Київ': 421866
 }
 
+
 def download_regions():
-  for region_name,region_id in region_ids.items():
-    print(f"Downloading file for {region_name}...")
-    url = f"https://polygons.openstreetmap.fr/get_geojson.py?id={region_id}&params=0"
-    urllib.request.urlretrieve(url, f"./src/data/regions/{region_name}.json")
-    print(f"Downloading file for {region_name} completed")
+    for region_name, region_id in region_ids.items():
+        print(f"Downloading file for {region_name}...")
+        url = f"polygons.openstreetmap.fr/get_geojson.py?id={region_id}"
+        to_file = f"./src/data/regions/{region_name}.json"
+        urllib.request.urlretrieve(f"https://{url}&params=0", to_file)
+        print(f"Downloading file for {region_name} completed")
+
 
 def download_alerts():
-    url = f"https://emapa.fra1.cdn.digitaloceanspaces.com/statuses.json"
-    urllib.request.urlretrieve(url, f"./src/data/alerts.js")
-    print(f"Downloading alerts/statuses completed")
+    url = "https://emapa.fra1.cdn.digitaloceanspaces.com/statuses.json"
+    urllib.request.urlretrieve(url, "./src/data/alerts.json")
+    print("Downloading alerts/statuses completed")
+
 
 if __name__ == '__main__':
-  download_regions()
-  download_alerts()
+    download_regions()
+    download_alerts()
