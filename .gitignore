@@ -21,3 +21,31 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+src/data/regions/Вінницька область.json
+src/data/regions/Волинська область.json
+src/data/regions/Дніпропетровська область.json
+src/data/regions/Донецька область.json
+src/data/regions/Житомирська область.json
+src/data/regions/Закарпатська область.json
+src/data/regions/Запорізька область.json
+src/data/regions/Івано-Франківська область.json
+src/data/regions/Київська область.json
+src/data/regions/Кіровоградська область.json
+src/data/regions/Луганська область.json
+src/data/regions/Львівська область.json
+src/data/regions/м. Київ.json
+src/data/regions/Миколаївська область.json
+src/data/regions/Одеська область.json
+src/data/regions/Полтавська область.json
+src/data/regions/Рівненська область.json
+src/data/regions/Сумська область.json
+src/data/regions/Тернопільська область.json
+src/data/regions/Харківська область.json
+src/data/regions/Херсонська область.json
+src/data/regions/Хмельницька область.json
+src/data/regions/Черкаська область.json
+src/data/regions/Чернівецька область.json
+src/data/regions/Чернігівська область.json
+src/data/alerts.js
+.vscode
