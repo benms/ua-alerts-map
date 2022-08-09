@@ -45,6 +45,13 @@ def download_alerts():
     print("Downloading alerts/statuses completed")
 
 
+def download_world_map():
+    url = "https://datahub.io/core/geo-countries/r/countries.geojson"
+    urllib.request.urlretrieve(url, "./src/data/countries.json")
+    print("Downloading alerts/statuses completed")
+
+
 if __name__ == '__main__':
     download_regions()
     download_alerts()
+    download_world_map()

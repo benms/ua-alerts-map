@@ -1,10 +1,12 @@
-import { MapContainer, TileLayer, GeoJSON, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import './App.css';
+import { MapContainer, GeoJSON, Popup } from 'react-leaflet';
 import * as alertsData from './data/alerts.json';
 import { useState } from 'react';
 import { geoRegions } from './data/regions';
+import * as countriesData from './data/countries.json';
 
-const copyRight = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+// const copyRight = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const position = [48.7630002, 30.1807396];
 
 function App() {
@@ -28,14 +30,39 @@ function App() {
     return `${regionName} ${prefixStr} ${hours}:${minutes} ${day} ${month} ${year}`;
   }
 
+  const countryHandler = (country, layer) => {
+    const name = country.properties.ADMIN;
+    layer.bindPopup(name);
+  };
+
   return (
-    <MapContainer center={position} zoom={6.25} scrollWheelZoom={true}>
-      <TileLayer
+    <MapContainer
+      style={{backgroundColor: 'white'}}
+      center={position}
+      zoom={6.25}
+      scrollWheelZoom>
+      {/* <TileLayer
         attribution={copyRight}
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      /> */}
+      <GeoJSON
+        data={countriesData}
+        color='black'
+        weight={0.5}
+        opacity={1}
+        fillColor='gray'
+        fillOpacity={0.2}
+        onEachFeature={countryHandler}
+        />
+       {/* <TopoJson data={topoDataUa} color='yellow' opacity='1'/> */}
       { Object.keys(geoRegions).map((regionName) => (
-        <GeoJSON key={regionName} data={geoRegions[regionName]} color={getAlertColor(regionName)} opacity="1">
+        <GeoJSON
+          key={regionName}
+          data={geoRegions[regionName]}
+          color={getAlertColor(regionName)}
+          opacity={1}
+          weight={1}
+          >
           <Popup>
             {getTitle(regionName)}
           </Popup>

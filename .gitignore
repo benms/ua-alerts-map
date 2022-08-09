@@ -47,6 +47,6 @@ src/data/regions/Хмельницька область.json
 src/data/regions/Черкаська область.json
 src/data/regions/Чернівецька область.json
 src/data/regions/Чернігівська область.json
-src/data/alerts.js
+src/data/countries.json
 src/data/alerts.json
 .vscode
