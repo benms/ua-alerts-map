@@ -23,7 +23,7 @@ function App() {
     const date = new Date(dateStr);
     const year = date.getFullYear();
     const day = date.getDate();
-    const month = date.getMonth();
+    const month = date.toLocaleString('uk', { month: 'long' });
     const hours = date.getHours();
     const minutes = date.getMinutes();
 
