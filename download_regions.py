@@ -40,7 +40,7 @@ def download_regions():
 
 
 def download_alerts():
-    url = "https://emapa.fra1.cdn.digitaloceanspaces.com/statuses.json"
+    url = "https://vadimklimenko.com/map/statuses.json"
     urllib.request.urlretrieve(url, "./src/data/alerts.json")
     print("Downloading alerts/statuses completed")
 
