@@ -12,22 +12,49 @@ const position = [48.7630002, 30.1807396];
 function App() {
   const [ regions ] = useState(alertsData);
 
+  if (!regions || !regions.states) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        fontSize: '18px'
+      }}>
+        Loading alert data...
+      </div>
+    );
+  }
+
   const getAlertColor = (id) => {
-    return regions.states[id].enabled ? 'orange' : 'green';
+    const state = regions.states?.[id];
+    if (!state) return 'gray';
+    return state.enabled ? 'orange' : 'green';
   }
 
   const getTitle = (regionName) => {
-    const data = regions.states[regionName];
-    const dateStr = data.enabled ? data.enabled_at : data.disabled_at;
-    const prefixStr = data.enabled ? '{regionName} Enabled at ' : 'Disabled at ';
-    const date = new Date(dateStr);
-    const year = date.getFullYear();
-    const day = date.getDate();
-    const month = date.toLocaleString('uk', { month: 'long' });
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
+    const data = regions.states?.[regionName];
+    if (!data) return `${regionName} - No data available`;
+    
+    try {
+      const dateStr = data.enabled ? data.enabled_at : data.disabled_at;
+      if (!dateStr) return `${regionName} - No timestamp available`;
+      
+      const prefixStr = data.enabled ? 'Enabled at ' : 'Disabled at ';
+      const date = new Date(dateStr);
+      
+      if (isNaN(date.getTime())) return `${regionName} - Invalid timestamp`;
+      
+      const year = date.getFullYear();
+      const day = date.getDate();
+      const month = date.toLocaleString('uk', { month: 'long' });
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
 
-    return `${regionName} ${prefixStr} ${hours}:${minutes} ${day} ${month} ${year}`;
+      return `${regionName} ${prefixStr} ${hours}:${minutes} ${day} ${month} ${year}`;
+    } catch (error) {
+      return `${regionName} - Error loading data`;
+    }
   }
 
   const countryHandler = (country, layer) => {
