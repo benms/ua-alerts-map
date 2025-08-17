@@ -1,0 +1,29 @@
+{
+  "total_regions": 6,
+  "active_alerts": 6,
+  "critical_alerts": 0,
+  "threat_type_counts": {
+    "air_raid": 5,
+    "artillery": 3,
+    "tactical_aviation": 2,
+    "drones": 1
+  },
+  "longest_duration": {
+    "region": "lugansk",
+    "duration": {
+      "days": 1220,
+      "hours": 17,
+      "minutes": 0
+    },
+    "total_hours": 29297
+  },
+  "highest_intensity": {
+    "region": "lugansk",
+    "intensity": 100,
+    "threats": [
+      "air_raid",
+      "artillery"
+    ]
+  },
+  "last_updated": "2025-08-17T10:58:03.443674+00:00"
+}

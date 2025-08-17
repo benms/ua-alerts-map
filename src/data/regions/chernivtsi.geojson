@@ -1,0 +1,13 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": 72533,
+    "name": "Am Weidengarten",
+    "name:en": null,
+    "admin_level": null
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": []
+  }
+}

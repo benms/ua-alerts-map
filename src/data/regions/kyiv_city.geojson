@@ -1,0 +1,13 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": 421866,
+    "name": "Київ",
+    "name:en": "Kyiv",
+    "admin_level": "4"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": []
+  }
+}

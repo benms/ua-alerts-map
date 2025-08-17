@@ -1,0 +1,127 @@
+{
+  "lugansk": {
+    "region_id": "lugansk",
+    "region_name": "Луганська",
+    "region_name_en": "Luhansk",
+    "alert_level": "high",
+    "threat_types": [
+      "air_raid",
+      "artillery"
+    ],
+    "start_time": "2022-04-14T17:58:03.440164+00:00",
+    "end_time": null,
+    "duration": {
+      "days": 1220,
+      "hours": 17,
+      "minutes": 0
+    },
+    "intensity": 100,
+    "sub_regions": [],
+    "is_active": true,
+    "last_updated": "2025-08-17T10:58:03.440353+00:00"
+  },
+  "donetsk": {
+    "region_id": "donetsk",
+    "region_name": "Донецька",
+    "region_name_en": "Donetsk",
+    "alert_level": "high",
+    "threat_types": [
+      "air_raid",
+      "tactical_aviation",
+      "artillery"
+    ],
+    "start_time": "2025-08-12T09:58:03.440252+00:00",
+    "end_time": null,
+    "duration": {
+      "days": 5,
+      "hours": 1,
+      "minutes": 0
+    },
+    "intensity": 100,
+    "sub_regions": [],
+    "is_active": true,
+    "last_updated": "2025-08-17T10:58:03.440411+00:00"
+  },
+  "zaporizhia": {
+    "region_id": "zaporizhia",
+    "region_name": "Запорізька",
+    "region_name_en": "Zaporizhia",
+    "alert_level": "high",
+    "threat_types": [
+      "air_raid"
+    ],
+    "start_time": "2025-08-16T03:58:03.440271+00:00",
+    "end_time": null,
+    "duration": {
+      "days": 1,
+      "hours": 7,
+      "minutes": 0
+    },
+    "intensity": 100,
+    "sub_regions": [],
+    "is_active": true,
+    "last_updated": "2025-08-17T10:58:03.440433+00:00"
+  },
+  "kherson": {
+    "region_id": "kherson",
+    "region_name": "Херсонська",
+    "region_name_en": "Kherson",
+    "alert_level": "medium",
+    "threat_types": [
+      "artillery",
+      "drones"
+    ],
+    "start_time": "2025-08-16T04:58:03.440285+00:00",
+    "end_time": null,
+    "duration": {
+      "days": 1,
+      "hours": 6,
+      "minutes": 0
+    },
+    "intensity": 100,
+    "sub_regions": [],
+    "is_active": true,
+    "last_updated": "2025-08-17T10:58:03.440450+00:00"
+  },
+  "crimea": {
+    "region_id": "crimea",
+    "region_name": "Автономна Республіка Крим",
+    "region_name_en": "Autonomous Republic of Crimea",
+    "alert_level": "high",
+    "threat_types": [
+      "air_raid",
+      "tactical_aviation"
+    ],
+    "start_time": "2022-11-30T23:58:03.440298+00:00",
+    "end_time": null,
+    "duration": {
+      "days": 990,
+      "hours": 11,
+      "minutes": 0
+    },
+    "intensity": 100,
+    "sub_regions": [],
+    "is_active": true,
+    "last_updated": "2025-08-17T10:58:03.440466+00:00"
+  },
+  "dnipropetrovsk": {
+    "region_id": "dnipropetrovsk",
+    "region_name": "Дніпропетровська",
+    "region_name_en": "Dnipropetrovsk",
+    "alert_level": "high",
+    "threat_types": [
+      "air_raid"
+    ],
+    "start_time": "2025-08-16T02:58:03.440311+00:00",
+    "end_time": null,
+    "duration": {
+      "days": 1,
+      "hours": 8,
+      "minutes": 0
+    },
+    "intensity": 100,
+    "sub_regions": [],
+    "is_active": true,
+    "last_updated": "2025-08-17T10:58:03.440481+00:00"
+  }
+}

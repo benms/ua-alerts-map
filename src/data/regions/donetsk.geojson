@@ -1,0 +1,13 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": 71249,
+    "name": "Чернігівська область",
+    "name:en": "Chernihiv Oblast",
+    "admin_level": "4"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": []
+  }
+}

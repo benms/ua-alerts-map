@@ -1,0 +1,13 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": 72531,
+    "name": "Лена",
+    "name:en": "Lena",
+    "admin_level": null
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": []
+  }
+}

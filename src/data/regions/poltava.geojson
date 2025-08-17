@@ -1,0 +1,13 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": 71256,
+    "name": "Natur-Kultur-Pfad Bornheim-Brenig-Roisdorf - Tour grün",
+    "name:en": null,
+    "admin_level": null
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": []
+  }
+}

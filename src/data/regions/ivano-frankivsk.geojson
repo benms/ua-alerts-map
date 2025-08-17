@@ -1,0 +1,13 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": 72527,
+    "name": "Straßenbahn 4",
+    "name:en": null,
+    "admin_level": null
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": []
+  }
+}

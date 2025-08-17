@@ -1,0 +1,13 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": 1574364,
+    "name": "Севастополь",
+    "name:en": "Sevastopol",
+    "admin_level": "4"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": 72525,
+    "name": "Тернопільська область",
+    "name:en": "Ternopil Oblast",
+    "admin_level": "4"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": []
+  }
+}

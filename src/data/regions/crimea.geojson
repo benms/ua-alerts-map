@@ -1,0 +1,13 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": 72639,
+    "name": "Автономна Республіка Крим",
+    "name:en": "Autonomous Republic of Crimea",
+    "admin_level": "4"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": []
+  }
+}
