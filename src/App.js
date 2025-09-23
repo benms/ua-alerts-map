@@ -2,15 +2,55 @@ import 'leaflet/dist/leaflet.css';
 import './App.css';
 import { MapContainer, GeoJSON, Popup } from 'react-leaflet';
 import * as alertsData from './data/alerts.json';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { geoRegions } from './data/regions';
 import * as countriesData from './data/countries.json';
 
 // const copyRight = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const position = [48.7630002, 30.1807396];
+const THEME_STORAGE_KEY = 'ua-alerts-map-theme';
+
+const getStoredTheme = () => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  try {
+    return window.localStorage.getItem(THEME_STORAGE_KEY);
+  } catch (error) {
+    return null;
+  }
+};
+
+const getPreferredTheme = () => {
+  const storedTheme = getStoredTheme();
+  if (storedTheme === 'light' || storedTheme === 'dark') {
+    return storedTheme;
+  }
+
+  if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  return 'light';
+};
 
 function App() {
   const [ regions ] = useState(alertsData);
+  const [ theme, setTheme ] = useState(getPreferredTheme);
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+
+    if (typeof window !== 'undefined') {
+      try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+      } catch (error) {
+        // Ignore persistence errors (e.g. disabled storage)
+      }
+    }
+  }, [ theme ]);
 
   if (!regions || !regions.states) {
     return (
@@ -28,8 +68,8 @@ function App() {
 
   const getAlertColor = (id) => {
     const state = regions.states?.[id];
-    if (!state) return 'gray';
-    return state.enabled ? 'orange' : 'green';
+    if (!state) return 'var(--alert-unknown-color)';
+    return state.enabled ? 'var(--alert-active-color)' : 'var(--alert-inactive-color)';
   }
 
   const getTitle = (regionName) => {
@@ -62,40 +102,64 @@ function App() {
     layer.bindPopup(name);
   };
 
+  const toggleTheme = () => {
+    setTheme((current) => (current === 'dark' ? 'light' : 'dark'));
+  };
+
+  const isDarkTheme = theme === 'dark';
+  const toggleLabel = `Switch to ${isDarkTheme ? 'light' : 'dark'} theme`;
+
   return (
-    <MapContainer
-      style={{backgroundColor: 'white'}}
-      center={position}
-      zoom={6.25}
-      scrollWheelZoom>
-      {/* <TileLayer
-        attribution={copyRight}
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      /> */}
-      <GeoJSON
-        data={countriesData}
-        color='black'
-        weight={0.5}
-        opacity={1}
-        fillColor='gray'
-        fillOpacity={0.2}
-        onEachFeature={countryHandler}
-        />
-       {/* <TopoJson data={topoDataUa} color='yellow' opacity='1'/> */}
-      { Object.keys(geoRegions).map((regionName) => (
+    <div className="app">
+      <button
+        type="button"
+        className="theme-toggle"
+        onClick={toggleTheme}
+        aria-label={toggleLabel}
+      >
+        <span aria-hidden="true" className="theme-toggle__icon">
+          {isDarkTheme ? '☀️' : '🌙'}
+        </span>
+        <span className="theme-toggle__label">
+          {isDarkTheme ? 'Light theme' : 'Dark theme'}
+        </span>
+      </button>
+      <MapContainer
+        className="alerts-map"
+        center={position}
+        zoom={6.25}
+        scrollWheelZoom>
+        {/* <TileLayer
+          attribution={copyRight}
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        /> */}
         <GeoJSON
-          key={regionName}
-          data={geoRegions[regionName]}
-          color={getAlertColor(regionName)}
+          data={countriesData}
+          color='var(--country-border-color)'
+          weight={0.5}
           opacity={1}
-          weight={1}
+          fillColor='var(--country-fill-color)'
+          fillOpacity={0.25}
+          onEachFeature={countryHandler}
+        />
+        {/* <TopoJson data={topoDataUa} color='yellow' opacity='1'/> */}
+        { Object.keys(geoRegions).map((regionName) => (
+          <GeoJSON
+            key={regionName}
+            data={geoRegions[regionName]}
+            color={getAlertColor(regionName)}
+            fillColor={getAlertColor(regionName)}
+            fillOpacity={0.35}
+            opacity={1}
+            weight={1}
           >
-          <Popup>
-            {getTitle(regionName)}
-          </Popup>
-        </GeoJSON>
-      )) }
-    </MapContainer>
+            <Popup>
+              {getTitle(regionName)}
+            </Popup>
+          </GeoJSON>
+        )) }
+      </MapContainer>
+    </div>
   );
 }
 

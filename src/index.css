@@ -1,3 +1,41 @@
+:root {
+  color-scheme: light;
+  --app-background: #f3f4f6;
+  --text-color: #0f172a;
+  --map-background: #eef2f6;
+  --country-border-color: #334155;
+  --country-fill-color: rgba(148, 163, 184, 0.35);
+  --popup-background: rgba(255, 255, 255, 0.95);
+  --popup-border-color: rgba(15, 23, 42, 0.12);
+  --alert-active-color: #f97316;
+  --alert-inactive-color: #22c55e;
+  --alert-unknown-color: #94a3b8;
+  --button-background: rgba(15, 23, 42, 0.85);
+  --button-color: #f8fafc;
+  --button-border: rgba(15, 23, 42, 0.18);
+  --button-hover-background: rgba(15, 23, 42, 0.95);
+  --outline-color: rgba(59, 130, 246, 0.65);
+}
+
+body[data-theme='dark'] {
+  color-scheme: dark;
+  --app-background: #0f172a;
+  --text-color: #e2e8f0;
+  --map-background: #020617;
+  --country-border-color: #1e293b;
+  --country-fill-color: rgba(51, 65, 85, 0.45);
+  --popup-background: rgba(15, 23, 42, 0.96);
+  --popup-border-color: rgba(148, 163, 184, 0.25);
+  --alert-active-color: #fb923c;
+  --alert-inactive-color: #4ade80;
+  --alert-unknown-color: #64748b;
+  --button-background: rgba(148, 163, 184, 0.18);
+  --button-color: #f8fafc;
+  --button-border: rgba(148, 163, 184, 0.2);
+  --button-hover-background: rgba(148, 163, 184, 0.3);
+  --outline-color: rgba(96, 165, 250, 0.75);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +43,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--app-background);
+  color: var(--text-color);
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 code {
