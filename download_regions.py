@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 import urllib.request
+from pathlib import Path
+from shutil import copyfileobj
+
+
+def download(url, to_file):
+    Path(to_file).parent.mkdir(parents=True, exist_ok=True)
+    request = urllib.request.Request(url, headers={'User-Agent': 'ua-alerts-map/1.0'})
+    with urllib.request.urlopen(request) as response, open(to_file, 'wb') as output:
+        copyfileobj(response, output)
 
 region_ids = {
   'Вінницька область': 90726,
@@ -35,23 +44,16 @@ def download_regions():
         print(f"Downloading file for {region_name}...")
         url = f"polygons.openstreetmap.fr/get_geojson.py?id={region_id}"
         to_file = f"./src/data/regions/{region_name}.json"
-        urllib.request.urlretrieve(f"https://{url}&params=0", to_file)
+        download(f"https://{url}&params=0", to_file)
         print(f"Downloading file for {region_name} completed")
 
 
 def download_alerts():
     url = "https://vadimklimenko.com/map/statuses.json"
-    urllib.request.urlretrieve(url, "./src/data/alerts.json")
-    print("Downloading alerts/statuses completed")
-
-
-def download_world_map():
-    url = "https://datahub.io/core/geo-countries/r/countries.geojson"
-    urllib.request.urlretrieve(url, "./src/data/countries.json")
+    download(url, "./src/data/alerts.json")
     print("Downloading alerts/statuses completed")
 
 
 if __name__ == '__main__':
     download_regions()
     download_alerts()
-    download_world_map()

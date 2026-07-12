@@ -1,8 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+jest.mock('react-leaflet', () => ({
+  MapContainer: ({ children }) => <div>{children}</div>,
+  GeoJSON: ({ children }) => <div>{children}</div>,
+  Popup: ({ children }) => <div>{children}</div>
+}));
+
+test('shows the alert summary and legend', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  expect(screen.getByRole('heading', { name: 'Мапа повітряних тривог' })).toBeInTheDocument();
+  expect(screen.getByText(/регіонів зараз у тривозі/)).toBeInTheDocument();
+  expect(screen.getByLabelText('Умовні позначення')).toBeInTheDocument();
 });

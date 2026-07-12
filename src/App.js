@@ -1,101 +1,65 @@
 import 'leaflet/dist/leaflet.css';
 import './App.css';
 import { MapContainer, GeoJSON, Popup } from 'react-leaflet';
-import * as alertsData from './data/alerts.json';
-import { useState } from 'react';
+import alertsData from './data/alerts.json';
 import { geoRegions } from './data/regions';
-import * as countriesData from './data/countries.json';
 
-// const copyRight = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const position = [48.7630002, 30.1807396];
+const colors = { active: '#dc2626', inactive: '#15803d', unknown: '#64748b' };
+const dateFormat = new Intl.DateTimeFormat('uk-UA', {
+  dateStyle: 'long',
+  timeStyle: 'short'
+});
+
+function getAlertColor(regionName) {
+  const state = alertsData.states?.[regionName];
+  return state ? colors[state.enabled ? 'active' : 'inactive'] : colors.unknown;
+}
+
+function getTitle(regionName) {
+  const state = alertsData.states?.[regionName];
+  if (!state) return `${regionName}: дані відсутні`;
+
+  const timestamp = state.enabled ? state.enabled_at : state.disabled_at;
+  const date = timestamp && new Date(timestamp);
+  if (!date || Number.isNaN(date.getTime())) return `${regionName}: час не вказано`;
+
+  return `${regionName}: ${state.enabled ? 'тривога з' : 'відбій о'} ${dateFormat.format(date)}`;
+}
 
 function App() {
-  const [ regions ] = useState(alertsData);
-
-  if (!regions || !regions.states) {
-    return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        fontSize: '18px'
-      }}>
-        Loading alert data...
-      </div>
-    );
-  }
-
-  const getAlertColor = (id) => {
-    const state = regions.states?.[id];
-    if (!state) return 'gray';
-    return state.enabled ? 'orange' : 'green';
-  }
-
-  const getTitle = (regionName) => {
-    const data = regions.states?.[regionName];
-    if (!data) return `${regionName} - No data available`;
-    
-    try {
-      const dateStr = data.enabled ? data.enabled_at : data.disabled_at;
-      if (!dateStr) return `${regionName} - No timestamp available`;
-      
-      const prefixStr = data.enabled ? 'Enabled at ' : 'Disabled at ';
-      const date = new Date(dateStr);
-      
-      if (isNaN(date.getTime())) return `${regionName} - Invalid timestamp`;
-      
-      const year = date.getFullYear();
-      const day = date.getDate();
-      const month = date.toLocaleString('uk', { month: 'long' });
-      const hours = date.getHours().toString().padStart(2, '0');
-      const minutes = date.getMinutes().toString().padStart(2, '0');
-
-      return `${regionName} ${prefixStr} ${hours}:${minutes} ${day} ${month} ${year}`;
-    } catch (error) {
-      return `${regionName} - Error loading data`;
-    }
-  }
-
-  const countryHandler = (country, layer) => {
-    const name = country.properties.ADMIN;
-    layer.bindPopup(name);
-  };
+  const regionNames = Object.keys(geoRegions);
+  const activeCount = regionNames.filter(name => alertsData.states?.[name]?.enabled).length;
 
   return (
-    <MapContainer
-      style={{backgroundColor: 'white'}}
-      center={position}
-      zoom={6.25}
-      scrollWheelZoom>
-      {/* <TileLayer
-        attribution={copyRight}
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      /> */}
-      <GeoJSON
-        data={countriesData}
-        color='black'
-        weight={0.5}
-        opacity={1}
-        fillColor='gray'
-        fillOpacity={0.2}
-        onEachFeature={countryHandler}
-        />
-       {/* <TopoJson data={topoDataUa} color='yellow' opacity='1'/> */}
-      { Object.keys(geoRegions).map((regionName) => (
-        <GeoJSON
-          key={regionName}
-          data={geoRegions[regionName]}
-          color={getAlertColor(regionName)}
-          opacity={1}
-          weight={1}
+    <main className="app">
+      <section className="status-panel" aria-label="Стан повітряних тривог">
+        <h1>Мапа повітряних тривог</h1>
+        <p><strong>{activeCount}</strong> з {regionNames.length} регіонів зараз у тривозі</p>
+        <div className="legend" aria-label="Умовні позначення">
+          <span><i style={{ background: colors.active }} />Тривога</span>
+          <span><i style={{ background: colors.inactive }} />Немає тривоги</span>
+          <span><i style={{ background: colors.unknown }} />Немає даних</span>
+        </div>
+      </section>
+
+      <MapContainer center={position} zoom={6.25} scrollWheelZoom>
+        {regionNames.map(regionName => (
+          <GeoJSON
+            key={regionName}
+            data={geoRegions[regionName]}
+            pathOptions={{
+              color: '#fff',
+              fillColor: getAlertColor(regionName),
+              fillOpacity: 0.82,
+              weight: 1
+            }}
           >
-          <Popup>
-            {getTitle(regionName)}
-          </Popup>
-        </GeoJSON>
-      )) }
-    </MapContainer>
+            <Popup>{getTitle(regionName)}</Popup>
+          </GeoJSON>
+        ))}
+      </MapContainer>
+    </main>
   );
 }
 
